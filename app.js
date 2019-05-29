@@ -81,7 +81,7 @@ jQuery(function ($) {
 			var todos = this.getFilteredTodos();
 			// $('#todo-list').html(this.todoTemplate(todos));
 			document.querySelector('#todo-list').innerHTML = this.todoTemplate(todos);
-			$('#main').toggle(todos.length > 0);
+			// $('#main').toggle(todos.length > 0);
 			var mainElement = document.querySelector('#main')
 				if(todos.length > 0){
 					mainElement.style.display = 'block';
