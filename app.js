@@ -111,7 +111,7 @@ jQuery(function ($) {
 				filter: this.filter
 			});
 
-			$('#footer').toggle(todoCount > 0).html(template);
+			// $('#footer').toggle(todoCount > 0).html(template);
 			var footer = document.querySelector('#footer')
 				if(todoCount > 0){
 					footer.style.display = 'block';
@@ -121,8 +121,8 @@ jQuery(function ($) {
 			footer.innerHTML = template;
 		},
 		toggleAll: function (e) {
-			var isChecked = $(e.target).prop('checked');
-
+			// var isChecked = $(e.target).prop('checked');
+var isChecked = e.target.checked
 			this.todos.forEach(function (todo) {
 				todo.completed = isChecked;
 			});
