@@ -65,17 +65,24 @@ jQuery(function ($) {
 			// $('#toggle-all').on('change', this.toggleAll.bind(this));
 			document.querySelector('#toggle-all').addEventListener('change', this.toggleAll.bind(this));
 			// $('#footer').on('click', '#clear-completed', this.destroyCompleted.bind(this));
-			document.querySelector('#footer').addEventListener('click', function(event) {
+			document.querySelector('#footer').addEventListener('click', function(e) {
 				if (event.target.id === 'clear-completed') {
-					App.destroyCompleted.apply(App);
+					App.destroyCompleted(e);
+				};
+			}.bind(this));
+			var todoListEl = document.querySelector('#todo-list');
+			todoListEl.addEventListener('change', function(e){
+				if(e.target.className === 'toggle'){
+					App.toggle(e);
 				}
-			});
-			$('#todo-list')
-				.on('change', '.toggle', this.toggle.bind(this))
-				.on('dblclick', 'label', this.edit.bind(this))
-				.on('keyup', '.edit', this.editKeyup.bind(this))
-				.on('focusout', '.edit', this.update.bind(this))
-				.on('click', '.destroy', this.destroy.bind(this));
+			}.bind(this));
+
+			// $('#todo-list')
+			// 	// .on('change', '.toggle', this.toggle.bind(this))
+			// 	.on('dblclick', 'label', this.edit.bind(this))
+			// 	.on('keyup', '.edit', this.editKeyup.bind(this))
+			// 	.on('focusout', '.edit', this.update.bind(this))
+			// 	.on('click', '.destroy', this.destroy.bind(this));
 		},
 		render: function () {
 			var todos = this.getFilteredTodos();
@@ -122,7 +129,7 @@ jQuery(function ($) {
 		},
 		toggleAll: function (e) {
 			// var isChecked = $(e.target).prop('checked');
-var isChecked = e.target.checked
+			var isChecked = e.target.checked
 			this.todos.forEach(function (todo) {
 				todo.completed = isChecked;
 			});
@@ -190,10 +197,10 @@ var isChecked = e.target.checked
 
 			this.render();
 		},
-		toggle: function (e) {
-      var i = this.indexFromEl(e.target);
-			this.todos[i].completed = !this.todos[i].completed;
-			this.render();
+		toggle: function (event) {
+      var i = App.indexFromEl(event.target);
+			App.todos[i].completed = !App.todos[i].completed;
+			App.render();
 		},
 		edit: function (e) { //puts the view in edit mode for the selected todo
       // var $input = $(e.target).closest('li').addClass('editing').find('.edit');
