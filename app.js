@@ -2,7 +2,7 @@
 //bindEvents
 
 /*global jQuery, Handlebars, Router */
-jQuery(function ($) {
+// jQuery(function ($) {
 	'use strict';
 
 	Handlebars.registerHelper('eq', function (a, b, options) {
@@ -69,14 +69,34 @@ jQuery(function ($) {
 				if (event.target.id === 'clear-completed') {
 					App.destroyCompleted(e);
 				};
-			}.bind(this));
+			});
 			var todoListEl = document.querySelector('#todo-list');
 			todoListEl.addEventListener('change', function(e){
 				if(e.target.className === 'toggle'){
 					App.toggle(e);
 				}
-			}.bind(this));
+			});
+			todoListEl.addEventListener('dblclick', function(e){
+				if(e.target.tagName === 'LABEL'){
+					App.edit(e);
+				}
+			});
 
+			todoListEl.addEventListener('keyup', function(e){
+				if(e.target.className === 'edit'){
+					App.editKeyup(e);
+				}
+			});
+			todoListEl.addEventListener('focusout', function(e){
+				if(e.target.className === 'edit'){
+					App.update(e);
+				}
+			});
+			todoListEl.addEventListener('click', function(e){
+				if(e.target.className === 'destroy'){
+					App.destroy(e);
+				}
+			});
 			// $('#todo-list')
 			// 	// .on('change', '.toggle', this.toggle.bind(this))
 			// 	.on('dblclick', 'label', this.edit.bind(this))
@@ -250,4 +270,4 @@ jQuery(function ($) {
 	};
 
 	App.init();
-});
+// });
